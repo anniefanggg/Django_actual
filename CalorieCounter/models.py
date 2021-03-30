@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 #create models, user porfile that adds to user model, food model
 
-class userProfile(models.Model):
+class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     userName = models.CharField(max_length=200, null=True)
     userEmail = models.CharField(max_length=200, null=True)
@@ -13,14 +13,15 @@ class userProfile(models.Model):
     def __str__ (self):
         return str(self.userName)
 
-class food(models.Model):
+class Food(models.Model):
     foodName = models.CharField(max_length=200)
     calorie = models.DecimalField(max_digits=6, decimal_places=2, default=0, blank=True)
-    quantity = models.IntegerField(default=1, null=True, blank=True)
-
+    servingSize = models.IntegerField()
+    servingSizeUnits = models.CharField(max_length=20)
     def __str__ (self):
         return str(self.foodName)
 
-class userFood(models.Model):
-    user = models.ManyToManyField(userProfile, blank=True)
-    food = models.ManyToManyField(food)
+class UserFood(models.Model):
+    user = models.ManyToManyField(UserProfile, blank=True)
+    food = models.ManyToManyField(Food)
+    quantity = models.IntegerField(default=1, null=True, blank=True)

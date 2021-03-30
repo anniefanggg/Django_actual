@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import userProfile, food, userFood
+from .models import UserProfile, Food, UserFood
 
 # Register your models here.
 
@@ -9,6 +9,6 @@ from .models import userProfile, food, userFood
 #    list_display=['name']
 #    list_filter=['name']
 
-admin.site.register(userProfile)
-admin.site.register(food)
-admin.site.register(userFood)
+admin.site.register(UserProfile)
+admin.site.register(Food)
+admin.site.register(UserFood)
