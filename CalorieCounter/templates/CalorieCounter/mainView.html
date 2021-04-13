@@ -16,14 +16,35 @@
     </head>
 
     <body>
-    <center><h4>N U T R I T I O N</h4>
+    <center><h4>U S E R F O O D</h4>
+    {% for i in total %}
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <!-- media is the combined image and text -->
+        <div class="media">
+          <!-- on left is the image -->
+          <div class="media-left">
+          </div>
+          <!-- on the right of image is corresponding text -->
+          <div class="media-body">
+            <h2 class="media-heading" style="color:red"> User: {{i.user}}</h2>
+            <p> Food: {{i.food}} </p>
+            <p> Quantity: {{i.quantity}} </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    <br>
+    <h4>N U T R I T I O N</h4>
     {% for food in foods %}
     <div class="row justify-content-center">
       <div class="col-md-6">
         <!-- media is the combined image and text -->
         <div class="media">
           <!-- on left is the image -->
-          <div class="media-left" style="padding-left:100px">
+          <div class="media-left">
           </div>
           <!-- on the right of image is corresponding text -->
           <div class="media-body">

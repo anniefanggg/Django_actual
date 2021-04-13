@@ -3,12 +3,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-#create models, user porfile that adds to user model, food model
+#create models, user profile that adds to user model, food model
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     userName = models.CharField(max_length=200, null=True)
     userEmail = models.CharField(max_length=200, null=True)
+    userPassword = models.CharField(max_length=200, null=True)
 
     def __str__ (self):
         return str(self.userName)
@@ -22,6 +23,8 @@ class Food(models.Model):
         return str(self.foodName)
 
 class UserFood(models.Model):
-    user = models.ManyToManyField(UserProfile, blank=True)
-    food = models.ManyToManyField(Food)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    food = models.ForeignKey(Food, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1, null=True, blank=True)
+    def __str__ (self):
+        return str(self.food) + " " + str(self.user)

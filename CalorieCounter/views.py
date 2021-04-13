@@ -39,8 +39,6 @@ def welcomeView(request):
     return HttpResponse(template.render({}, request))
 
 def mainView(request):
-    # picture displaying day's calories (circle updates according to amount eaten),
-    # input box for calories eaten
     template = loader.get_template('CalorieCounter/mainView.html')
     foods = Food.objects.all()
     total = UserFood.objects.all()
