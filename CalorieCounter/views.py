@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views import generic
+from django.views import View
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.template import loader
@@ -34,29 +34,30 @@ from .models import UserFood
 #     loggedIn = request.user.is_authenticated
 # Create your views here.
 
-def welcomeView(request):
-    template = loader.get_template('CalorieCounter/welcomeView.html')
-    return HttpResponse(template.render({}, request))
+class WelcomeView(View):
+    def get(self, request):
+        template = loader.get_template('CalorieCounter/welcomeView.html')
+        return HttpResponse(template.render({}, request))
 
-def mainView(request):
-    template = loader.get_template('CalorieCounter/mainView.html')
-    foods = Food.objects.all()
-    total = UserFood.objects.all()
+class MainView(View):
+    def get(self, request):
+        template = loader.get_template('CalorieCounter/mainView.html')
+        foods = Food.objects.all()
+        total = UserFood.objects.all()
 
-    # get data from view to template
-    context = {
-    "foods": foods,
-    "total": total,
-    }
+        # get data from view to template
+        context = {
+        "foods": foods,
+        "total": total,
+        }
 
-    return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(context, request))
 
-
-def addFood(request):
-    if request.method=="POST":
+class AddFood(View):
+    def get(self, request):
         form = addUserFood(request.POST)
         if form.is_valid():
             form.save()
             return redirect('/')
-    form = addUserFood()
-    return render(request, 'addUserFood.html')
+        form = addUserFood()
+        return render(request, 'addUserFood.html')

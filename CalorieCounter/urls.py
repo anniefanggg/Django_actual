@@ -7,7 +7,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.welcomeView, name='welcomeView'),
-    path('main/', views.mainView, name='mainView'),
-    path('addFood/', views.addFood, name='addFood')
+    path('', views.WelcomeView.as_view(), name='welcomeView'),
+    path('main/', views.MainView.as_view(), name='mainView'),
+    path('addFood/', views.AddFood.as_view(), name='addFood')
 ]
