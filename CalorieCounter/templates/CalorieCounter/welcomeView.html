@@ -1,3 +1,38 @@
-#welcome page
+<!DOCTYPE html>
+<html lang="en">
 
-<ul> This is the welcome page congrats </ul>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <title>Main View</title>
+    <meta name="viewport" content="width=devide-width, initial-scale=1.0">
+    <meta charset="UTF-8"> <!-- this tells website the character set used-->
+    </head>
+
+  <body><center>
+    <main id="main-holder">
+      <h1 id="login-header">Login</h1>
+
+      {% if form.errors %}
+        <div id="login-error-msg-holder">
+          <p id="login-error-msg">Invalid username or password</p>
+        </div>
+      {% endif %}
+
+      <form id="login-form">
+        <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+        <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
+        <input type="submit" value="Login" id="login-form-submit">
+      </form>
+
+    </main>
+  </center></body>
+
+</html>

@@ -9,6 +9,8 @@ from .models import Food
 from .models import UserProfile
 from .models import UserFood
 
+from .forms import addUserFood
+
 #class view might be better
 # class indexView(View):
 #     def get(self, request):
@@ -60,4 +62,4 @@ class AddFood(View):
             form.save()
             return redirect('/')
         form = addUserFood()
-        return render(request, 'addUserFood.html')
+        return render(request, 'CalorieCounter/addFoodView.html')

@@ -10,7 +10,6 @@ class UserProfile(models.Model):
     userName = models.CharField(max_length=200, null=True)
     userEmail = models.CharField(max_length=200, null=True)
     userPassword = models.CharField(max_length=200, null=True)
-
     def __str__ (self):
         return str(self.userName)
 
