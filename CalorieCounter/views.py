@@ -40,6 +40,8 @@ class WelcomeView(View):
     def get(self, request):
         template = loader.get_template('CalorieCounter/welcomeView.html')
         return HttpResponse(template.render({}, request))
+    def post(self, request):
+        pass
 
 class MainView(View):
     def get(self, request):
@@ -63,3 +65,10 @@ class AddFood(View):
             return redirect('/')
         form = addUserFood()
         return render(request, 'CalorieCounter/addFoodView.html')
+    def post(self, request):
+        userFood = UserFood(
+            user = request.user,
+            food = request.POST['Food'],
+            quantity = request.POST['Quantity'],
+        )
+        userFood.save()
