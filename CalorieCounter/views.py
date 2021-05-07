@@ -10,16 +10,6 @@ from .models import UserProfile
 from .models import UserFood
 
 from .forms import addUserFood
-
-#class view might be better
-# class indexView(View):
-#     def get(self, request):
-#         form = AuthenticateForm()
-#         context = {
-#         'form': form,
-#         'user': request.user,
-#         }
-#         return render(request, )
 #
 # def index(request):
 #     if request.POST:
