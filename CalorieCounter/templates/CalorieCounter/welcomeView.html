@@ -11,7 +11,7 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <title>Main View</title>
+    <title>Welcome View</title>
     <meta name="viewport" content="width=devide-width, initial-scale=1.0">
     <meta charset="UTF-8"> <!-- this tells website the character set used-->
     </head>
@@ -20,7 +20,7 @@
     <main id="main-holder">
       <h1 id="login-header">Login</h1>
 
-      {% if form.errors %}
+      {% if not user.is_authenticated %}
         <div id="login-error-msg-holder">
           <p id="login-error-msg">Invalid username or password</p>
         </div>

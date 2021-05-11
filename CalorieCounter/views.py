@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 from django.utils import timezone
@@ -10,51 +10,31 @@ from .models import UserProfile
 from .models import UserFood
 
 from .forms import addUserFood
-#
-# def index(request):
-#     if request.POST:
-#         if 'inputUsername' in request.POST.keys():
-#             user = authenticate(username=request.POST['inputUsername']),
-#             password = request.POST['inputPassword']),
-#             if user is not None:
-#                 login(request, user)
-#             else:
-#                 pass
-#         elif 'logout' in request.POST.keys():
-#             logout(request)
-#
-#     loggedIn = request.user.is_authenticated
-# Create your views here.
 
 class WelcomeView(View):
     def get(self, request):
-        if request.POST:
-            if 'inputUsername' in request.POST.keys():
-                user = authenticate(username=request.POST['inputUsername'],
-                    password=request.POST['inputPassword'])
-                if user is not None:
-                    login(request, user)
-                else:
-                    pass
-            elif 'logout' in request.POST.keys():
-                logout(request)
-        if request.user.is_aunthenticated:
-            loggedIn = True
+        if request.user.is_authenticated:
+            return redirect('mainView')
         else:
-            loggedIn = False
-        template = loader.get_template('CalorieCounter/welcomeView.html')
-        allUserProfiles = UserProfile.objects.all()
-        for UserProfile in allUserProfiles:
-            userProfile.firstName = UserProfile.first_name
-
-        context = {
-        'allUserProfiles': allUserProfiles,
-        'loggedIn': loggedIn,
-        'userProfile': request.user,
-        }
-        return HttpResponse(template.render({}, request))
+            template = loader.get_template('CalorieCounter/welcomeView.html')
+            return HttpResponse(template.render({}, request))
     def post(self, request):
-        pass
+        if 'username' in request.POST.keys():
+            user = authenticate(username=request.POST['username'],
+                password=request.POST['password'])
+            if user is not None:
+                login(request, user)
+            else:
+                pass
+        if request.user.is_authenticated:
+            return redirect('mainView')
+        if 'logout' in request.POST.keys():
+            logout(request)
+        template = loader.get_template('CalorieCounter/welcomeView.html')
+        context = {
+        'user': request.user,
+        }
+        return HttpResponse(template.render(context, request))
 
 class MainView(View):
     def get(self, request):
