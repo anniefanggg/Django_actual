@@ -1,17 +1,17 @@
 {% if loggedIn %}
-  <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3>
+  <h3>Welcome, {{ userProfile.first_name }} {{ userProfile.last_name }}</h3>
   <form style="padding-bottom:1em;" method="POST">
     {% csrf_token %}
-    
+
 
 {% else %}
 
   <form style="padding-bottom:1em;" method="POST">
-    { csrf_token %}
+    {% csrf_token %}
 
     <div class="form-group">
       <label for="inputUsername">Username</label>
-      <input type="text" class="form-control" name="inputUsernmae" id="inputUsername" />
+      <input type="text" class="form-control" name="inputUsername" id="inputUsername" />
     </div>
 
     <div class="form-group">
@@ -21,3 +21,4 @@
 
     <button type="submit" class="btn btn-danger">Login</button>
   </form>
+{% endif %}

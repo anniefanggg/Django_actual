@@ -28,7 +28,30 @@ from .forms import addUserFood
 
 class WelcomeView(View):
     def get(self, request):
+        if request.POST:
+            if 'inputUsername' in request.POST.keys():
+                user = authenticate(username=request.POST['inputUsername'],
+                    password=request.POST['inputPassword'])
+                if user is not None:
+                    login(request, user)
+                else:
+                    pass
+            elif 'logout' in request.POST.keys():
+                logout(request)
+        if request.user.is_aunthenticated:
+            loggedIn = True
+        else:
+            loggedIn = False
         template = loader.get_template('CalorieCounter/welcomeView.html')
+        allUserProfiles = UserProfile.objects.all()
+        for UserProfile in allUserProfiles:
+            userProfile.firstName = UserProfile.first_name
+
+        context = {
+        'allUserProfiles': allUserProfiles,
+        'loggedIn': loggedIn,
+        'userProfile': request.user,
+        }
         return HttpResponse(template.render({}, request))
     def post(self, request):
         pass
