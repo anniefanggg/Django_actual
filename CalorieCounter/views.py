@@ -40,7 +40,17 @@ class MainView(View):
     def get(self, request):
         template = loader.get_template('CalorieCounter/mainView.html')
         foods = Food.objects.all()
-        total = UserFood.objects.all()
+        total_temp = UserFood.objects.all()
+        total = []
+
+        for item_temp in total_temp:
+            item = {}
+            item["food"] = item_temp.food.foodName
+            item["user"] = item_temp.user.username
+            item["quantity"] = item_temp.quantity
+            total.append(item)
+
+        print (total)
 
         # get data from view to template
         context = {
