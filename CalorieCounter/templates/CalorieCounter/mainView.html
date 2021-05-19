@@ -13,9 +13,8 @@
     <title>Main View</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta charset="UTF-8">
+      {{ total|json_script:"totalData" }}
       <script type="application/javascript" src="https://www.gstatic.com/charts/loader.js">
-        const total = JSON.parse(document.getElementById('totalData').textContent);
-        console.log(total)
       </script>
       <script type="application/javascript">
         google.charts.load('current', {'packages':['corechart']});
@@ -23,24 +22,26 @@
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
-
+          const total = JSON.parse(document.getElementById('totalData').textContent);
           // Create the data table.
           var data = new google.visualization.DataTable();
           data.addColumn('string', 'Food');
           data.addColumn('number', 'Calories');
-          for (i in total) {
+          for (i of total) {
+            console.log([
+              i["food"], i["quantity"]
+            ]);
             data.addRows([
-              total[i.food], total[i.quantity]
+              i["food"], i["quantity"]
             ]);
           }
-          var options = {'title':'Calories for Today',
+          var options = {'title':'Food for today',
                          'width':400,
                          'height':300};
 
           var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
           chart.draw(data, options);
         }
-        {{ total|json_script:"totalData" }}
       </script>
     </head>
 
