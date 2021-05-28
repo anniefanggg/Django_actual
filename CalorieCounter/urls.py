@@ -9,5 +9,6 @@ from . import views
 urlpatterns = [
     path('', views.WelcomeView.as_view(), name='welcomeView'),
     path('main/', views.MainView.as_view(), name='mainView'),
-    path('addFood/', views.AddFood.as_view(), name='addFoodView')
+    path('addFood/', views.AddFood.as_view(), name='addFoodView'),
+    path('logout/', views.LogoutView, name="logoutView"),
 ]

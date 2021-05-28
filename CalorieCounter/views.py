@@ -75,3 +75,7 @@ class AddFood(View):
             quantity = request.POST['Quantity'],
         )
         userFood.save()
+
+def LogoutView(request):
+    logout(request)
+    return render(request, 'CalorieCounter/logoutView.html')
