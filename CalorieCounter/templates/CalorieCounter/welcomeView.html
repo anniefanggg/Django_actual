@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
+    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Fonts from Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
+    <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
+    <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <title>Welcome View</title>
+    <!-- this scales the website to look good in any device -->
     <meta name="viewport" content="width=devide-width, initial-scale=1.0">
     <meta charset="UTF-8"> <!-- this tells website the character set used-->
-    </head>
+  </head>
 
   <body><center>
     <main id="main-holder">
       <h1 id="login-header">Login</h1>
-
+      <!-- dispay the following if user is not authenticated -->
       {% if not user.is_authenticated %}
         <div id="login-error-msg-holder">
           <p id="login-error-msg">You are not logged in.</p>
         </div>
       {% endif %}
-
+      <!-- authenticate user -->
       <form id="login-form" method="POST">
         {% csrf_token %}
         <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
         <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
         <input type="submit" value="Login" id="login-form-submit">
       </form>
-
     </main>
   </center></body>
-
-</html>
+  </html>

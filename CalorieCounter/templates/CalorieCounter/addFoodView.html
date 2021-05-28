@@ -1,51 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Fonts from Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <title>Add Food View</title>
+    <!-- this scales the website to look good in any device -->
     <meta name="viewport" content="width=devide-width, initial-scale=1.0">
     <meta charset="UTF-8"> <!-- this tells website the character set used-->
-    </head>
+  </head>
 
-    <body><center>
-      <main id="main-holder">
-        <h1 id="login-header">Enter Food</h1>
-        <p id="login-error-msg">Add food from list of foods</p>
+  <body><center>
+    <main id="main-holder">
+      <h1 id="login-header">Enter Food</h1>
+      <p id="login-error-msg">Add food from list of foods</p>
 
-        <form name="form1" id="form1" method="POST">
-          {% csrf_token %}
-          <label for="Food">Food:</label>
-          <select id="Food" name="Food">
-            <option value="scone">Scone</option>
-            <option value="mochi">Mochi</option>
-            <option value="boba">Boba</option>
-            <option value="pork bun">Pork Bun</option>
-            <option value="ramen">Ramen</option>
-            <option value="salad">Salad</option>
-            <option value="spaghetti">Spaghetti</option>
-            <option value="pizza">Pizza</option>
-          </select>
+      <!-- Create dropdown list for foods -->
+      <form name="form1" id="form1" method="POST">
+        {% csrf_token %}
+        <label for="Food">Food:</label>
+        <select id="Food" name="Food">
+          <option value="scone">Scone</option>
+          <option value="mochi">Mochi</option>
+          <option value="boba">Boba</option>
+          <option value="pork bun">Pork Bun</option>
+          <option value="ramen">Ramen</option>
+          <option value="salad">Salad</option>
+          <option value="spaghetti">Spaghetti</option>
+          <option value="pizza">Pizza</option>
+        </select>
 
-          <label for="Quanity">Quantity:</label>
-          <select id="Quantity" name="Quantity">
-            <option value="one">1</option>
-            <option value="two">2</option>
-            <option value="three">3</option>
-            <option value="four">4</option>
-            <option value="five">5</option>
-          </select>
-        <a href="http://localhost:8000/main/"></a>
-          <input type="submit" value="Select">
-        </form>
-      </main>
-    </center></body>
-
-  </html>
+        <!-- Create dropdown list for quantity -->
+        <label for="Quanity">Quantity:</label>
+        <select id="Quantity" name="Quantity">
+          <option value="one">1</option>
+          <option value="two">2</option>
+          <option value="three">3</option>
+          <option value="four">4</option>
+          <option value="five">5</option>
+        </select>
+      <!-- Return user to main page with updated food selection -->
+      <a href="http://localhost:8000/main/"></a>
+        <input type="submit" value="Select">
+      </form>
+    </main>
+  </center></body>
+</html>

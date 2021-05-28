@@ -1,95 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Fonts from Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <title>Main View</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta charset="UTF-8">
-      {{ total|json_script:"totalData" }}
-      <script type="application/javascript" src="https://www.gstatic.com/charts/loader.js">
-      </script>
-      <script type="application/javascript">
-        google.charts.load('current', {'packages':['corechart']});
-
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-          const total = JSON.parse(document.getElementById('totalData').textContent);
-          // Create the data table.
-          var data = new google.visualization.DataTable();
-          data.addColumn('string', 'Food');
-          data.addColumn('number', 'Calories');
-          for (i of total) {
-            console.log([
-              i["food"], i["quantity"]
-            ]);
-            data.addRow([
-              i["food"], i["quantity"]
-            ]);
-          }
-          var options = {'title':'Food for today',
-                         'width':400,
-                         'height':300};
-
-          var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-          chart.draw(data, options);
+  <title>Main View</title>
+    <!-- this scales the website to look good in any device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"> <!-- this tells website the character set used-->
+    <!-- this converts data from a template format to a JSON format -->
+    {{ total|json_script:"totalData" }}
+    <!-- Chart feature -->
+    <script type="application/javascript" src="https://www.gstatic.com/charts/loader.js">
+    </script>
+    <script type="application/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        const total = JSON.parse(document.getElementById('totalData').textContent);
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Food');
+        data.addColumn('number', 'Calories');
+        for (i of total) {
+          console.log([
+            i["food"], i["quantity"]
+          ]);
+          data.addRow([
+            i["food"], i["quantity"]
+          ]);
         }
-      </script>
-    </head>
+        var options = {'title':'Food for today',
+                       'width':400,
+                       'height':300};
 
-    <body>
-    <center><h4>U S E R F O O D</h4>
-    {% for i in total %}
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <!-- media is the combined image and text -->
-        <div class="media">
-          <!-- on left is the image -->
-          <div class="media-left">
-          </div>
-          <!-- on the right of image is corresponding text -->
-          <div class="media-body">
-            <h2 class="media-heading" style="color:red"> User: {{i.user}}</h2>
-            <p> Food: {{i.food}} </p>
-            <p> Quantity: {{i.quantity}} </p>
-          </div>
-        </div>
-      </div>
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options); // Draw pie chart with rows and columns from data
+      }
+    </script>
+  </head>
+
+  <body>
+  <center><h4>U S E R F O O D</h4>
+  <!-- List foods, quantities, and calories that user inputted -->
+  {% for i in total %}
+  <div class="row justify-content-center">
+    <div class="container-fluid">
+      <h2 style="color:red"> User: {{i.user}}</h2>
+      <p> Food: {{i.food}} </p>
+      <p> Quantity: {{i.quantity}} </p>
     </div>
-    {% endfor %}
+  </div>
+  {% endfor %}
 
-    <br>
-      <a href="http://localhost:8000/addFood" class="btn" role="button">Add Food</a>
-    <br>
+  <br>
+    <!-- Create button for adding more food to the list -->
+    <a href="http://localhost:8000/addFood" class="btn" role="button">Add Food</a>
+  <br>
 
-    <h4>N U T R I T I O N</h4>
-    {% for food in foods %}
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <!-- media is the combined image and text -->
-        <div class="media">
-          <!-- on left is the image -->
-          <div class="media-left">
-          </div>
-          <!-- on the right of image is corresponding text -->
-          <div class="media-body">
-            <h2 class="media-heading" style="color:red">{{food.foodName}}</h2>
-            <p> Calories: {{food.calorie}} </p>
-            <p> Serving Size: {{food.servingSize}} {{food.servingSizeUnits}} </p>
-          </div>
-        </div>
-      </div>
+  <h4>N U T R I T I O N</h4>
+  <!-- List all possible foods with corresponding calories and serving sizes -->
+  {% for food in foods %}
+  <div class="row justify-content-center">
+    <div class="container-fluid">
+      <h2 style="color:red"> {{food.foodName}}</h2>
+      <p> Calories: {{food.calorie}} </p>
+      <p> Serving Size: {{food.servingSize}} {{food.servingSizeUnits}} </p>
     </div>
-    {% endfor %}
-    <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
-    </center>
-    </body></html>
+  </div>
+  {% endfor %}
+
+  <!--Div that will hold the pie chart-->
+  <div id="chart_div"></div>
+  </center>
+</body></html>
