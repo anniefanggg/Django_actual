@@ -12,6 +12,11 @@ from .models import UserFood
 from .forms import addUserFood
 
 class WelcomeView(View):
+    """
+        Parameters: None
+        Return: None
+        Purpose: 
+    """
     def get(self, request):
         if request.user.is_authenticated:
             return redirect('mainView')
@@ -49,7 +54,6 @@ class MainView(View):
             item["user"] = item_temp.user.username
             item["quantity"] = item_temp.quantity
             total.append(item)
-
         print (total)
 
         # get data from view to template
@@ -69,12 +73,16 @@ class AddFood(View):
         form = addUserFood()
         return render(request, 'CalorieCounter/addFoodView.html')
     def post(self, request):
+        food = Food.objects.get(foodName = request.POST['Food'])
         userFood = UserFood(
             user = request.user,
-            food = request.POST['Food'],
+            food = food,
             quantity = request.POST['Quantity'],
         )
+
         userFood.save()
+        print (userFood.__dict__)
+        return redirect('mainView')
 
 def LogoutView(request):
     logout(request)
