@@ -30,7 +30,7 @@ class WelcomeView(View):
             return redirect('mainView')
         if 'logout' in request.POST.keys():
             logout(request)
-        template = loader.get_template('CalorieCounter/welcomeView.html')
+        template = loader.get_template('CalorieCounter/mainView.html')
         context = {
         'user': request.user,
         }
