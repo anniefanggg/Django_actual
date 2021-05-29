@@ -33,10 +33,10 @@
         data.addColumn('number', 'Quantity');
         for (i of total) {
           console.log([
-            i["food"], i["quantity"]
+            i["food"], i["quantity"], i["calories"]
           ]);
           data.addRow([
-            i["food"], i["quantity"]
+            i["food"], i["quantity"], i["calories"]
           ]);
         }
         var options = {'title':'Food for today',
@@ -51,23 +51,23 @@
 
   <body>
   <center><h4>U S E R F O O D</h4>
-
   <!-- List foods and quantities that user inputted -->
-  {% for i in total %}
   <div class="row justify-content-center">
     <div class="container-fluid">
-      <h2 style="color:red"> User: {{i.user}}</h2>
+      <h2 style="color:red"> User: {{total.0.user}}</h2>
+      {% for i in total %}
       <p> Food: {{i.food}} </p>
       <p> Quantity: {{i.quantity}} </p>
+      <p> Calories: {{i.calories}} </p>
+      {% endfor %}
     </div>
   </div>
-  {% endfor %}
 
-  <br>
+
+</br>
     <!-- Create button for adding more food to the list -->
     <a href="/addFood" class="btn" style="background-color:#ffe0a3" role="button">Add Food</a>
     <a href="/logout" class="btn" style="background-color:#ffe0a3" role="button">Logout</a>
-  <br>
 
   <h4>N U T R I T I O N</h4>
   <!-- List all possible foods with corresponding calories and serving sizes -->

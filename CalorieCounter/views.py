@@ -15,14 +15,18 @@ class WelcomeView(View):
     """
         Parameters: None
         Return: None
-        Purpose: 
+        Purpose: The purpose of this class is to authenticate the user with their username
+        and password. If they are not logged in, a message will notify them. If they
+        are successfuly authenticated, the user will be sent to the main page.
     """
+    # Check if user is already logged in
     def get(self, request):
         if request.user.is_authenticated:
             return redirect('mainView')
         else:
             template = loader.get_template('CalorieCounter/welcomeView.html')
             return HttpResponse(template.render({}, request))
+    # Check if username and password are correct to authenticate
     def post(self, request):
         if 'username' in request.POST.keys():
             user = authenticate(username=request.POST['username'],
@@ -42,12 +46,21 @@ class WelcomeView(View):
         return HttpResponse(template.render(context, request))
 
 class MainView(View):
+    """
+        Parameters: None
+        Return: None
+        Purpose: The purpose of this class is to display the user's information, such
+        as their username, the foods they've eaten, and the quantities of said foods.
+        It will also display the total list of foods they may select from. A button
+        will allow them to go to the page for adding additional foods, and they will
+        also be able to log out.
+    """
     def get(self, request):
         template = loader.get_template('CalorieCounter/mainView.html')
         foods = Food.objects.all()
         total_temp = UserFood.objects.all()
         total = []
-
+        # Create dictionary to store info about user's food
         for item_temp in total_temp:
             item = {}
             item["food"] = item_temp.food.foodName
@@ -56,15 +69,24 @@ class MainView(View):
             total.append(item)
         print (total)
 
-        # get data from view to template
+        calories = Food.objects.get(calorie = request.POST['Calories'])
+        # Get data from view to template
         context = {
         "foods": foods,
         "total": total,
+        "calories": calories,
         }
 
         return HttpResponse(template.render(context, request))
 
 class AddFood(View):
+    """
+        Parameters: None
+        Return: None
+        Purpose: The purpose of this class is to allow the user to select foods and
+        their quantites. Upon submitting the information, they will be sent back
+        to the main page.
+    """
     def get(self, request):
         form = addUserFood(request.POST)
         if form.is_valid():
@@ -73,17 +95,18 @@ class AddFood(View):
         form = addUserFood()
         return render(request, 'CalorieCounter/addFoodView.html')
     def post(self, request):
+        # Get food as a class object
         food = Food.objects.get(foodName = request.POST['Food'])
         userFood = UserFood(
             user = request.user,
             food = food,
             quantity = request.POST['Quantity'],
         )
-
         userFood.save()
         print (userFood.__dict__)
         return redirect('mainView')
 
 def LogoutView(request):
+    # Allow user to log out
     logout(request)
     return render(request, 'CalorieCounter/logoutView.html')

@@ -18,7 +18,7 @@ class Food(models.Model):
     servingSize = models.IntegerField()
     servingSizeUnits = models.CharField(max_length=20)
     def __str__ (self):
-        return str(self.foodName)
+        return str(self.foodName + " " + str(self.calorie))
 
 class UserFood(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
