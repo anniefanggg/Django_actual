@@ -60,21 +60,26 @@ class MainView(View):
         foods = Food.objects.all()
         total_temp = UserFood.objects.all()
         total = []
+        totalCalories = 0
         # Create dictionary to store info about user's food
         for item_temp in total_temp:
             item = {}
             item["food"] = item_temp.food.foodName
             item["user"] = item_temp.user.username
             item["quantity"] = item_temp.quantity
+            food = Food.objects.get(foodName = item["food"])
+            calorie = food.calorie
+            item["calorie"] = calorie
+            totalCalories += (calorie * item["quantity"])
+            item["totalCalories"] = totalCalories
             total.append(item)
         print (total)
 
-        calories = Food.objects.get(calorie = request.POST['Calories'])
+
         # Get data from view to template
         context = {
         "foods": foods,
         "total": total,
-        "calories": calories,
         }
 
         return HttpResponse(template.render(context, request))
